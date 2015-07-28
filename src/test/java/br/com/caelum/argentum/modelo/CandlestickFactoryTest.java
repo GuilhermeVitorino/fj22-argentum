@@ -41,6 +41,42 @@ public class CandlestickFactoryTest {
 	}
 	
 	@Test
+	public void semNegociacoesGeraCandleComAberturaZero() {
+		Calendar hoje = Calendar.getInstance();
+		List<Negociacao> negociacoes = Arrays.asList();
+		CandlestickFactory fabrica = new CandlestickFactory();
+		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+		Assert.assertEquals(0.0, candle.getAbertura(), 0.00001);
+	}
+	
+	@Test
+	public void semNegociacoesGeraCandleComFechamentoZero() {
+		Calendar hoje = Calendar.getInstance();
+		List<Negociacao> negociacoes = Arrays.asList();
+		CandlestickFactory fabrica = new CandlestickFactory();
+		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+		Assert.assertEquals(0.0, candle.getFechamento(), 0.00001);
+	}
+	
+	@Test
+	public void semNegociacoesGeraCandleComMinimoZero() {
+		Calendar hoje = Calendar.getInstance();
+		List<Negociacao> negociacoes = Arrays.asList();
+		CandlestickFactory fabrica = new CandlestickFactory();
+		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+		Assert.assertEquals(0.0, candle.getMinimo(), 0.00001);
+	}
+	
+	@Test
+	public void semNegociacoesGeraCandleComMaximoZero() {
+		Calendar hoje = Calendar.getInstance();
+		List<Negociacao> negociacoes = Arrays.asList();
+		CandlestickFactory fabrica = new CandlestickFactory();
+		Candlestick candle = fabrica.constroiCandleParaData(hoje, negociacoes);
+		Assert.assertEquals(0.0, candle.getMaximo(), 0.00001);
+	}
+	
+	@Test
 	public void apenasUmaNegociacaoGeraCandleComValoresIguais() {
 		Calendar hoje = Calendar.getInstance();
 		Negociacao negociacao1 = new Negociacao(40.5, 100, hoje);

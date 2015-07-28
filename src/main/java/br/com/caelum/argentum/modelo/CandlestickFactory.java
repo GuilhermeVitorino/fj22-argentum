@@ -30,7 +30,8 @@ public class CandlestickFactory {
 		double abertura = negociacoes.isEmpty() ? 0 : negociacoes.get(0).getPreco();
 		double fechamento = negociacoes.isEmpty() ? 0 :
 							negociacoes.get(negociacoes.size() - 1).getPreco();
-		
+		if(negociacoes.isEmpty())
+			minimo=0;
 		//double abertura = negociacoes.get(0).getPreco();
 		//double fechamento = negociacoes.get(negociacoes.size()-1).getPreco();
 		
