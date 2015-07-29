@@ -22,7 +22,9 @@ public class CandlestickFactory {
 		
 			if (negociacao.getPreco() > maximo) {
 				maximo = negociacao.getPreco();
-			} else if (negociacao.getPreco() < minimo) {
+			}
+			
+			if (negociacao.getPreco() < minimo) {
 				minimo = negociacao.getPreco();
 			}
 		}
@@ -34,7 +36,7 @@ public class CandlestickFactory {
 			minimo=0;
 		//double abertura = negociacoes.get(0).getPreco();
 		//double fechamento = negociacoes.get(negociacoes.size()-1).getPreco();
-		
+		System.out.println(minimo);
 		return new Candlestick(abertura, fechamento, minimo, maximo,
 														volume, data);
 				
