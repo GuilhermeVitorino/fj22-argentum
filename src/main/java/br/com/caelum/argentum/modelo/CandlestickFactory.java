@@ -1,6 +1,9 @@
 package br.com.caelum.argentum.modelo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CandlestickFactory {
@@ -40,5 +43,57 @@ public class CandlestickFactory {
 		return new Candlestick(abertura, fechamento, minimo, maximo,
 														volume, data);
 				
+	}
+
+	public List<Candlestick> constroiCandles(List<Negociacao> todasNegociacoes) {
+		
+		Collections.sort(todasNegociacoes,
+				new Comparator<Negociacao>() {
+					@Override
+					public int compare(Negociacao n1, Negociacao n2) {
+						return n1.getData().getTime().compareTo(n2.getData().getTime());
+					}
+		}); //Ordenar negociações!!!
+		
+		List<Candlestick> candles = new ArrayList<Candlestick>();
+		List<Negociacao> negociacoesDoDia = new ArrayList<Negociacao>();
+		
+		Calendar dataAtual = todasNegociacoes.get(0).getData();
+		
+		for (Negociacao negociacao : todasNegociacoes) {
+			// se não for mesmo dia, fecha candle e reinicia variáveis
+			if (!negociacao.isMesmoDia(dataAtual)) {
+				Candlestick candleDoDia = constroiCandleParaData(dataAtual,
+				negociacoesDoDia);
+				candles.add(candleDoDia);
+				negociacoesDoDia = new ArrayList<Negociacao>();
+				dataAtual = negociacao.getData();
+			}
+		negociacoesDoDia.add(negociacao);
+		}
+		
+		dataAtual = todasNegociacoes.get(0).getData();
+		
+		// adiciona último candle
+		Candlestick candleDoDia = constroiCandleParaData(dataAtual,
+		negociacoesDoDia);
+		
+		candles.add(candleDoDia);
+		
+		for (Negociacao negociacao : todasNegociacoes) {
+			System.err.println(negociacao.getData().getTime());
+		}
+		
+		for (Negociacao negociacao : todasNegociacoes) {
+			
+			System.err.println("Data negociação: "+negociacao.getData().getTime());
+			System.err.println("Data atual: "+dataAtual.getTime());
+			if (negociacao.getData().before(dataAtual)) {
+				throw new IllegalStateException("negociações em ordem errada");
+			}
+			// se não for mesmo dia, fecha candle e reinicia variáveis
+		}
+		
+		return candles;
 	}
 }

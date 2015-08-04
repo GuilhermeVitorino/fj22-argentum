@@ -30,8 +30,15 @@ public final class Negociacao {
 	}
 
 	public Calendar getData() {
-		//clone retorna um objeto imtavel
+		//clone retorna um objeto imutavel
 		return (Calendar) this.data.clone();
+	}
+
+	public boolean isMesmoDia(Calendar outraData) {
+		return
+		(data.get(Calendar.DAY_OF_MONTH) == outraData.get(Calendar.DAY_OF_MONTH)
+		&& data.get(Calendar.MONTH) == outraData.get(Calendar.MONTH)
+		&& data.get(Calendar.YEAR) == outraData.get(Calendar.YEAR));
 	}
 	
 	/*Sem clone, precisaríamos fazer esse processo na mão. Com Calendar é relativamente fácil:
