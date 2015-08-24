@@ -47,6 +47,4 @@ public final class Negociacao {
 		copia.setTimeInMillis(this.data.getTimeInMillis());
 		return copia;
 	}*/
-	
-	
 }
